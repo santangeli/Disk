@@ -54,6 +54,24 @@ public extension Disk {
             throw error
         }
     }
+	
+	/// Clear subdirectory by removing all files
+	///
+	/// - Parameters:
+	///   - subdirectory: relative path to directory
+	///   - directory: directory where subdirectory is located
+	/// - Throws: Error if FileManager cannot access a directory
+	static func clear(_ subDirectory: String, directory: Directory) throws {
+		do {
+			let url = try getExistingFileURL(for: subDirectory, in: directory)
+			let contents = try FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: [])
+			for fileUrl in contents {
+				try? FileManager.default.removeItem(at: fileUrl)
+			}
+		} catch {
+			throw error
+		}
+	}
     
     /// Remove file from the file system
     ///

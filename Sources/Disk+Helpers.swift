@@ -68,6 +68,7 @@ public extension Disk {
 			for fileUrl in contents {
 				try? FileManager.default.removeItem(at: fileUrl)
 			}
+			try? FileManager.default.removeItem(at: url)
 		} catch {
 			throw error
 		}
